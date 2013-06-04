@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <plugin_location>plugins/minishop/minishop.plugin.php</plugin_location>
+    <plugin_status>active</plugin_status>
+    <plugin_priority>15</plugin_priority>
+    <plugin_name>Minishop</plugin_name>
+    <plugin_description>Minishop module for Monstra</plugin_description>
+    <plugin_version>1.0.0</plugin_version>
+    <plugin_author>Nakome</plugin_author>
+    <plugin_author_uri>http://nakome.com/</plugin_author_uri>
+</root>

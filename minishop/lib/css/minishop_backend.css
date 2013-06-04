@@ -1,0 +1,43 @@
+#mainshop{margin-bottom: 20px;}
+/*  Fileupload
+=====================*/
+.custom-input-file {
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+    width: auto;
+    min-height: 50px;
+    border: 1px solid #E9E9E9;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    margin-bottom: 5px;
+    color: #686868;
+    background: #FFF;
+}
+.custom-input-file:hover {
+    background-color: #F3F0F0;
+    color: #3D3A3A;
+    border-color: #D6D6D6;
+}
+.custom-input-file .input-file {
+    margin: 0;
+    padding: 0;outline:0;
+    font-size: 10000px;
+    border: 10000px solid transparent;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    position: absolute;
+    right: -1000px;
+    top: -1000px;
+    cursor: pointer;
+}
+.custom-input-file .archive {
+    font-size: 7pt;
+    overflow: hidden;
+}
+.custom-input-file:hover .archive {
+    background-color: #4D4D4D;
+    color: #FFF;
+}
