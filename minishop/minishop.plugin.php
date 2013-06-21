@@ -233,9 +233,15 @@ class miniShop extends Frontend{
                       $mail->MsgHTML($comment, $commentFor,$date);
 
                       if(!$mail->Send()) {
-                          Notification::set('error', __('A Letter was not sent!', 'mycontact'));
+                          Notification::set('error', 
+                                         __('A Letter was not sent!',
+                                            'mycontact'));
                       }
-                      Notification::set('success', __('A Comment has been save!', 'mycontact'));
+                    
+                      Notification::set('success',
+                                     __('A Comment has been save!',
+                                       'mycontact'));
+                    
                       Request::redirect('?id='.$id);
                     }else{die('You are a robot?');}
                 } else { die('csrf detected!'); }
@@ -275,6 +281,42 @@ class miniShop extends Frontend{
               ->display();
     }
 
+
+    /**
+    * Get Slide
+    * for home or any page
+    *  <code>
+    *      echo miniShop::getSlide();
+    *  </code>
+    *
+    * @return string
+    */
+    public static function getSlide(){
+      $table = new Table('miniShop');
+      $items = $table->select(null,1);
+      return  View::factory('minishop/views/frontend/slide')
+              ->assign('items', $items)
+              ->display();
+    }
+
+
+
+    /**
+    * Get New items only last 4
+    * for home or any page
+    *  <code>
+    *      echo miniShop::getNewItems();
+    *  </code>
+    *
+    * @return string
+    */
+    public static function getNewItems(){
+      $table = new Table('miniShop');
+      $items = $table->select(null,4,null);
+      return  View::factory('minishop/views/frontend/new_items')
+              ->assign('items', $items)
+              ->display();
+    }
 
 
 
@@ -386,7 +428,9 @@ class miniShop extends Frontend{
                   $mail->From = $email;
                   $mail->FromName = $name;
                   $mail->Subject = __('Shop item purchase','minishop');
-                  $mail->MsgHTML(View::factory('minishop/views/backend/layout_email')
+                  $mail->MsgHTML(
+                    View::factory('minishop/views/backend/layout_email'
+                  )
                       ->assign('name', $name)
                       ->assign('email', $email)
                       ->assign('adress1', $adress1)
@@ -400,7 +444,10 @@ class miniShop extends Frontend{
                       ->render());
 
                   if(!$mail->Send()) {
-                      Notification::set('error', __('A Letter was not sent!', 'mycontact'));
+                      Notification::set('error', 
+                                     __('A Letter was not sent!',
+                                       'mycontact')
+                                      );
                   }
 
                   Request::redirect('?v=py');
@@ -427,7 +474,8 @@ class miniShop extends Frontend{
             echo
             Option::get('ms_befchk').
             Html::br(2).
-            '<a href="javascript:void(0);" class="ms_checkout simpleCart_checkout">
+            '<a href="javascript:void(0);" 
+              class="ms_checkout simpleCart_checkout">
               <span class="pay"></span>'.__('Go to Paypal','minishop').
             '</a>';
           }
@@ -549,15 +597,24 @@ class miniShop extends Frontend{
           if(isset($rated)) {
             // Rating set
             if($rated == 'bd'){
-              $table->updateWhere('[id='.$id.']',array('rating' => 'What is this..'));}
+              $table->updateWhere(
+                '[id='.$id.']',array('rating' => 'What is this..'));}
             else if ($rated == 'nb'){
-              $table->updateWhere('[id='.$id.']',array('rating' => 'bad','hit' => ++$lk,'bad' => ++$b));}
+              $table->updateWhere(
+                '[id='.$id.']',array(
+                  'rating' => 'bad','hit' => ++$lk,'bad' => ++$b));}
             else if ($rated == 'go'){
-              $table->updateWhere('[id='.$id.']',array('rating' => 'Good','hit' => ++$lk,'good' =>  ++$g));}
+              $table->updateWhere(
+                '[id='.$id.']',
+                array('rating' => 'Good','hit' => ++$lk,'good' =>  ++$g));}
             else if ($rated == 'vg'){
-              $table->updateWhere('[id='.$id.']',array('rating' => 'Very Good','hit' => ++$lk,'veryGood' =>  ++$vg));}
+              $table->updateWhere(
+                '[id='.$id.']',
+                array('rating' => 'Very Good','hit' => ++$lk,'veryGood' =>  ++$vg));}
             else if ($rated == 'am'){
-              $table->updateWhere('[id='.$id.']',array('rating' => 'Amazing','hit' => ++$lk,'amazing' => ++$a));}
+              $table->updateWhere(
+                '[id='.$id.']',
+                array('rating' => 'Amazing','hit' => ++$lk,'amazing' => ++$a));}
             $table->select(null, 'all');
             // On rating set cookie
             Cookie::set($item['id'],$item['uid']);
@@ -566,15 +623,37 @@ class miniShop extends Frontend{
           }
         // Return (not echo) to view
         return Html::br().
-          '<div id="rateMe" title="Rating">
-            <a href="'.$url.'&rated=bd"onclick="rateIt(this)" id="_1" title="What is this.." onmouseover="rating(this)" onmouseout="off(this)"></a>
-            <a href="'.$url.'&rated=nb"onclick="rateIt(this)" id="_2" title="Bad" onmouseover="rating(this)" onmouseout="off(this)"></a>
-            <a href="'.$url.'&rated=go"onclick="rateIt(this)" id="_3" title="Good" onmouseover="rating(this)" onmouseout="off(this)"></a>
-            <a href="'.$url.'&rated=vg"onclick="rateIt(this)" id="_4" title="Very good" onmouseover="rating(this)" onmouseout="off(this)"></a>
-            <a href="'.$url.'&rated=am"onclick="rateIt(this)" id="_5" title="Amazing" onmouseover="rating(this)" onmouseout="off(this)"></a>
-          </div>'.Html::nbsp(1).'
-          <span id="rateStatus" class="label label-important">'.__('Rating this','minishop').'</span>
-          <span id="ratingSaved">Saved!</span>'.Html::br();
+			'<div id="rateMe" title="Rating">
+				<a href="'.$url.'&rated=bd" 
+          		onclick="rateIt(this)" id="_1" title="What is this.." 
+          		onmouseover="rating(this)" 
+          		onmouseout="off(this)"></a>
+          
+				<a href="'.$url.'&rated=nb"
+          		onclick="rateIt(this)" id="_2" title="Bad" 
+          		onmouseover="rating(this)" 
+          		onmouseout="off(this)"></a>
+          
+				<a href="'.$url.'&rated=go"
+                onclick="rateIt(this)" id="_3" title="Good" 
+                onmouseover="rating(this)" 
+                onmouseout="off(this)"></a>
+          
+				<a href="'.$url.'&rated=vg"
+                onclick="rateIt(this)" id="_4" title="Very good" 
+                onmouseover="rating(this)" 
+                onmouseout="off(this)"></a>
+          
+				<a href="'.$url.'&rated=am"
+                onclick="rateIt(this)" id="_5" title="Amazing" 
+                onmouseover="rating(this)" 
+                onmouseout="off(this)"></a>
+          
+			</div>'.Html::nbsp(1).'
+			<div id="rateStatus" class="label label-important">
+          		'.__('Rating this','minishop').'
+          	</div>
+			<div id="ratingSaved">Saved!</div>';
       }
     }
 
@@ -602,10 +681,10 @@ class miniShop extends Frontend{
         $errorTitle = __('Canceled','minishop');
         $errorText = Option::get('ms_cancel');
         if (isset($get)) {
-          // If get sc show success
+          // If get sc show success shop?gt=sc to view success
           if($get == 'sc'){
             return  View::factory('minishop/views/frontend/success')->assign('successTitle', $successTitle)->assign('successText', $successText)->display();
-          // If get cn show cancel
+          // If get cn show cancel shop?gt=cn  to view cancel
           }else if ($get == 'cn') {
             return  View::factory('minishop/views/frontend/cancel')->assign('errorTitle', $errorTitle)->assign('errorText', $errorText)->display();
           }
