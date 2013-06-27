@@ -15,9 +15,12 @@
     foreach ($items as $item) {
 
     $html ='<div id="shopProduct" class="simpleCart_shelfItem media anim ef clearfix">
-              <a class="backTo" href="javascript:history.back();" >
-                <span class="backTshop"></span>'.Html::nbsp(2).'Back
+
+              <a class="backTo" href="'.Site::url().'shop" >
+                <span class="backTshop"></span>'.Html::nbsp(2).__('Shop','minishop').'
               </a>
+
+
                   <ul class="inline pull-right">
                     <li><b>'.__('Share on','minishop').':</b></li>
                     <li>
@@ -31,24 +34,56 @@
               <div class="row-fluid">
               <div class="span8">
                 <div class="well-small">
-                  <div class="ms_large">
-                    <a  href="javascrip:void(0);" title="'.$item['title'].'" >
-                      <img onclick="showMe();" id="image" class="item_tumb media-object" src="'.Option::get('siteurl').'public/shop/large/'.$item['image1'].'" width="100%">
-                    </a>
-                  </div>
-                  '.Html::br(1).'
-                  <div class="ms_tumbs thumbnails">
-                    <ul>
-                      <li><a href="javascript:;">
-                      <img onclick="changeImage(this);" class="miniTumb thumbnail" src="'.Option::get('siteurl').'public/shop/small/'.$item['image1'].'"></a></li>
-                      <li><a href="javascript:;">
-                      <img onclick="changeImage(this);" class="miniTumb thumbnail" src="'.Option::get('siteurl').'public/shop/small/'.$item['image2'].'"></a></li>
-                      <li><a href="javascript:;">
-                      <img onclick="changeImage(this);" class="miniTumb thumbnail" src="'.Option::get('siteurl').'public/shop/small/'.$item['image3'].'"></a></li>
-                      <li><a href="javascript:;">
-                      <img onclick="changeImage(this);" class="miniTumb thumbnail" src="'.Option::get('siteurl').'public/shop/small/'.$item['image4'].'"></a></li>
-                    </ul>
-                  </div>
+
+                  <div id="myProduct" class="carousel slide">
+                    <div class="carousel-inner">
+                      <div class="active item">
+                        <a href="#"  data-js="img" data-img="'.Option::get('siteurl').'public/shop/large/'.$item['image1'].'" title="'.$item['title'].'" >
+                          <img class="item_tumb" src="'.Option::get('siteurl').'public/shop/large/'.$item['image1'].'"></a>
+                      </div>
+
+                      <div class="item">
+                        <a href="#"  data-js="img" data-img="'.Option::get('siteurl').'public/shop/large/'.$item['image2'].'" title="'.$item['title'].'" >
+                          <img  src="'.Option::get('siteurl').'public/shop/large/'.$item['image2'].'"></a>
+                      </div>
+
+                      <div class="item">
+                        <a href="#" data-js="img" data-img="'.Option::get('siteurl').'public/shop/large/'.$item['image3'].'" title="'.$item['title'].'" >
+                          <img src="'.Option::get('siteurl').'public/shop/large/'.$item['image3'].'"></a>
+                      </div>
+
+                      <div class="item">
+                        <a href="#" data-js="img" data-img="'.Option::get('siteurl').'public/shop/large/'.$item['image4'].'" title="'.$item['title'].'" >
+                          <img  src="'.Option::get('siteurl').'public/shop/large/'.$item['image4'].'"></a>
+                      </div>
+
+                    </div>
+                </div>
+
+                '.Html::br(1).'
+
+                <div class="ms_tumbs thumbnails">
+                  <ul>
+
+                    <li data-target="#myProduct" data-slide-to="0" class="active"><a href="#">
+                      <img  class="miniTumb thumbnail" src="'.Option::get('siteurl').'public/shop/small/'.$item['image1'].'">
+                      </a></li>
+
+                    <li data-target="#myProduct" data-slide-to="1" ><a href="#">
+                      <img  class="miniTumb thumbnail" src="'.Option::get('siteurl').'public/shop/small/'.$item['image2'].'">
+                      </a></li>
+
+                    <li data-target="#myProduct" data-slide-to="2" ><a href="#">
+                      <img  class="miniTumb thumbnail" src="'.Option::get('siteurl').'public/shop/small/'.$item['image3'].'">
+                      </a></li>
+
+                    <li data-target="#myProduct" data-slide-to="3" ><a href="#">
+                      <img  class="miniTumb thumbnail" src="'.Option::get('siteurl').'public/shop/small/'.$item['image4'].'">
+                      </a></li>
+
+                  </ul>
+                </div>
+
                 </div>
               </div>
 
@@ -69,6 +104,7 @@
                     <li><strong>Very good: </strong><span class="stars">'.percentage($item['veryGood'],$item['hit']).'</span></li>
                     <li><strong>Amazing: </strong><span class="stars">'.percentage($item['amazing'],$item['hit']).'</span></li>
                     <li>'.miniShop::raTing().Html::nbsp(2).'</li>
+                    <li>'.Html::nbsp(2).'</li>
                     <li>
                     <a href="javascript:;" class="viewProduct item_add" title="Add to cart">
                     <span class="pay"></span>'.Html::nbsp(2).'Add to cart</a>
@@ -162,7 +198,7 @@
                 '<div class="controls">'.
                   Form::textarea('ts_comment','',array(
                     'rows'=>'5',
-                    'class'=>'span4',
+                    'class'=>'span6',
                     'onKeyDown' => 'return countText(this.form.ts_comment,this.form.count,200);',
                     'onKeyUp' => 'return countText(this.form.ts_comment,this.form.count,200);'
                     )).
@@ -191,36 +227,41 @@
 ?>
 
 
-<script>
-var thisForm = document.getElementById('ts_form');
-if(thisForm){thisForm.onsubmit = function(){return valComment();}};
 
-function changeImage(img) {
-    var link = document.getElementById("image");
-    link.src =  img.src.replace('small', 'large');
-}
+<!-- Modal -->
+<div id="modal" class="modal hide fade in">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>&nbsp;&nbsp;&nbsp;</h3>
+  </div>
+  <div class="modal-body">
+    <!-- Data show here -->
+    <div id="data"></div>
+  </div>
+</div>
 
-function showMe() {
-    var img = document.getElementById("image");
-    return TINY.box.show({html:'<img src="'+img.src+'"/>',animate:true,close:true})
-}
 
 
-function countText(limitField, limitCount, limitNum) {
-  if (limitField.value.length > limitNum) {
-      limitField.value = limitField.value.substring(0, limitNum);
-  } else {
-      limitCount.value = limitNum - limitField.value.length;
+
+<script type="text/javascript">
+  var thisForm = document.getElementById('ts_form');
+  if(thisForm){thisForm.onsubmit = function(){return valComment();}};
+
+  function countText(limitField, limitCount, limitNum) {
+    if (limitField.value.length > limitNum) {
+        limitField.value = limitField.value.substring(0, limitNum);
+    } else {
+        limitCount.value = limitNum - limitField.value.length;
+    }
   }
-}
 
-function valComment(){
-    var reg = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    var error = document.getElementById('ts_error');
-    var thisEmail = document.getElementById('ts_email');
-    if (reg.test(thisEmail.value) == '') {thisEmail.focus();error.style.display='inline-block';return false;}
-    return true;
-}
+  function valComment(){
+      var reg = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      var error = document.getElementById('ts_error');
+      var thisEmail = document.getElementById('ts_email');
+      if (reg.test(thisEmail.value) == '') {thisEmail.focus();error.style.display='inline-block';return false;}
+      return true;
+  }
 </script>
 
 

@@ -72,7 +72,7 @@
   '<div class="control-group">'.
     Form::label('ms_comment',__('Comments','minishop'),array('class'=>'control-label')).
     '<div class="controls">'.
-    Form::textarea('ms_comment','',array('rows'=>'5','class'=>'span4')).Html::br(2).
+    Form::textarea('ms_comment','',array('rows'=>'5','class'=>'span6')).Html::br(2).
     '<b>'.__('Items','minishop').':</b><span id="items" class="simpleCart_quantity"></span>'.Html::br().
     '<b>'.__('Total','minishop').': </b><span id="total" class="simpleCart_grandTotal"></span>'.
     '</div>

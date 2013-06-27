@@ -100,6 +100,12 @@
             // Get checkout buttoms  <br>
             &lt;?php echo miniShop::getCheckout(); ?&gt;
             <br><br>
+            // Get new items  <br>
+            &lt;?php echo miniShop::getNewItems(number or all); ?&gt;
+            <br><br>
+            // Get slide <br>
+            &lt;?php echo miniShop::getSlide(); ?&gt;
+            <br><br>
         </code>
         <br>
         <h3><?php echo __('Shortcode','minishop');?></h3>
