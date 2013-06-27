@@ -31,7 +31,7 @@ $(function() {$('span.stars').stars();});
     *-------------------------------------
     * Data-text
     * Example:
-    * <a data-js="img" data-text="image.jpg">get</a>
+    * <a data-js="img" data-img="image.jpg">get</a>
     *
     *-------------------------------------
     */
