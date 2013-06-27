@@ -1,4 +1,4 @@
-<div id="myNewitem" class="carousel slide" data-interval="5000">
+<div id="myNewitem" class="carousel slide">
     <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
         <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -7,11 +7,8 @@
     </ol>
     <div class="carousel-inner">
         <?php
-
         if(count($items) > 0)
-
             foreach ($items as $item) {
-
                 $html = '<div class="item active">
                 <div class="carousel-caption">
                 <h3><a href="shop/shopitem?id='.$item['id'].'">'.$item['title'].'</a></h3>
@@ -47,7 +44,5 @@
             echo $html;
             ?>
     </div><!--/.carousel-inner -->
-    <a class="carousel-control left" href="#myNewitem" data-slide="prev">&lsaquo;</a>
-    <a class="carousel-control right" href="#myNewitem" data-slide="next">&rsaquo;</a>
 </div>
 
