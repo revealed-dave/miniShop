@@ -16,7 +16,10 @@ $(function() {$('span.stars').stars();});
 })(jQuery);
 
 
-
+/*
+* Author: Nakome
+* Date: 27/06/2013
+*/
 ;(function($){
   $(function(){
 
